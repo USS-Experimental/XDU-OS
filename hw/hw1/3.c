@@ -72,4 +72,20 @@ int main()
  * 
  * After fork process of loop 2, now all four process has the same i, which will be 1,
  * that will end the loop in all four process and that is the end of the program.
+ * 
+ * One interesting behavior is if there is no sleep in loop 2,
+ * the getppid() might get a strange pid(in this test, 413), the print is as followed:
+ * 
+ * Loop 1, pid: 32324
+ * Loop 1, pid: 32325, child of 32324
+ * Loop 2, pid: 32325
+ * Loop 2, pid: 32324
+ * Loop 2, pid: 32327, child of 413
+ * Loop 2, pid: 32326, child of 413
+ * 
+ * With ps -e command, it says that this pid is a process whose CMD is Relay(416).
+ * 
+ * From my opinion, A possbile explanation of this is that the parent might be terminated
+ * before the child process(in this test, 32326 and 32327) call the getppid(), and the
+ * system switch the parent of these child process to a process preserved by the system.
 */
