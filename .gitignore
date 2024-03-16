@@ -1,3 +1,6 @@
+# Temp files
+temp.*
+
 # Prerequisites
 *.d
 
