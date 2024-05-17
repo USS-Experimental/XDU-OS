@@ -1,0 +1,29 @@
+/* --------------------------------------------------------------
+ * File          : switchcnt.bt
+ * Authors       : 西安电子科技大学:网络与信息安全国家级实验教学中心
+ * Created on    : <2024-02-01>
+ * Last modified : <2024-03-01>
+ * LICENSE       : 由实验教学中心拥有，分发需申请并征得同意
+ * -------------------------------------------------------------*/
+
+#include <linux/sched.h>
+
+BEGIN
+{
+  @target_pid = (uint64)$1; // Get the PID from bash script
+  @count = 0;
+  printf("Count PID: %d, press Ctrl-C to show result\n", @target_pid);
+  @time = nsecs
+}
+
+kprobe:dequeue_task_fair
+/pid == @target_pid/ // Ensure tracking the required process
+{
+  @count++;
+  printf("Process %d, total count: %d\n", @target_pid, @count);
+}
+
+END
+{
+  @time = (nsecs-@time) / 1000000000; // ns to second
+}
