@@ -1,12 +1,18 @@
-**Semaphore使用实验:**
+# Semaphore使用实验
 
-使用semaphore，并利用该程序生成2个进程（注意：非线程），这两个进程写同一个文件，要求：
-一个进程写入内容：“自己学号的后3位PROC1 MYFILE1”；另一个进程写入内容：“自己学号的后3位PROC2 MYFILE2”
+## 题目
 
-a.互斥写，即只有一个进程写完后，才能让另一个进程写;   
-b. 将该程序的semaphore替换成使用strict alternation算法的忙等待互斥锁完成。
+使用semaphore，并利用该程序生成2个进程（注意：非线程），这两个进程写同一个文件
 
-**Usage**
+### 要求：
+> 一个进程写入内容：“自己学号的后3位PROC1 MYFILE1”；  
+另一个进程写入内容：“自己学号的后3位PROC2 MYFILE2”
+
+### 任务：
+> a.互斥写，即只有一个进程写完后，才能让另一个进程写;   
+> b. 将该程序的semaphore替换成使用strict alternation算法的忙等待互斥锁完成。
+
+## 使用方法
 
 Build: `make`
 
