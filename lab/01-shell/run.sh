@@ -29,6 +29,8 @@ else
     echo "Invalid operation"
     exit 2
 fi
+
+exit 0
 EOF
 
 chmod +x "$NEW_SCRIPT"

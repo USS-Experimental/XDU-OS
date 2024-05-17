@@ -11,3 +11,5 @@ else
     echo "Invalid operation"
     exit 2
 fi
+
+exit 0

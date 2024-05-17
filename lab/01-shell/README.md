@@ -1,8 +1,41 @@
-**Shell脚本生成实验：**
+# Shell脚本生成实验
+
+## 题目
 
 编写一个脚本，能够生成这样的脚本：即：“编写shell脚本，该脚本接收两个参数，
 参数1作为要读写的文件，参数2作为标志位，标识是读还是写。功能完成对参数1所示文件的读写，
 该文件的内容为 “自己学号的后3位 MYFILE”。并且自动执行该生成的脚本（执行功能：写入文件）。
 然后，使用strace命令观察上面脚本的执行，并证明上述脚本在生成脚本时调用了系统调用write。
 
-Usage: `strace -e write -f ./run.sh file write 2>&1 | grep "write("`
+## 使用方法
+
+`strace -e write -f ./run.sh file write 2>&1 | grep "write("`
+
+## 解答
+
+### 读写脚本实现
+
+首先考虑生成脚本的功能，该脚本要求能对一个文件进行读写，因此这个应该向这个脚本传入两个参数，一个为文件路径，一个为操作，脚本如下：
+
+```bash
+#!/bin/bash
+
+FILE=$1
+OPERATION=$2
+
+if [[ $OPERATION == "read" ]]; then
+    cat "$FILE"
+elif [[ $OPERATION == "write" ]]; then
+    echo "547 MYFILE" >> "$FILE"
+else
+    echo "Invalid operation"
+    exit 2
+fi
+
+exit 0
+```
+在bash脚本中，`$1`、`$2`...为向脚本传入的命令行参数，该脚本逻辑非常简单，不再赘述
+
+### 上层调用脚本实现
+
+接下来完成上层生成脚本，这个脚本应该从命令行读取两个参数，一个为文件路径，一个为操作，在脚本开始运行时检测命令行参数是否正确，若有问题则终止运行，接下来使用`cat > "$NEW_SCRIPT" << 'EOF'`将准备好脚本写入到一个新文件当中，添加该文件的执行权限，并调用脚本，具体实现参照`run.sh`
