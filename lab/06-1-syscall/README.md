@@ -36,7 +36,7 @@
 
 #### 修改系统调用函数头文件
 
-在修改了系统调用表后，要在头文件中添加对于的函数定义，系统调用头文件`include/linux/syscals.h`
+在修改了系统调用表后，要在头文件中添加对于的函数定义，系统调用头文件`include/linux/syscalls.h`
 
 由题目要求，需要传入两个`int`类型参数，于是添加如下行：
 
@@ -129,4 +129,4 @@ $ uname -r
 
 在用户态下希望直接使用自定义系统调用，需要包含`sys/syscall.h`这一头文件，并使用`syscall()`函数进行调用，函数第一个参数为系统调用号，后续为向系统调用传入的参数。
 
-具体实现参考`test_syscall.c`，使用方法:`./test_syscall.out <id> <number of processes>`
+具体实现参考`test_syscall.c`，使用方法:`gcc test_syscall.c -o ts.out && ./ts.out <id> <number of processes>`
