@@ -1,9 +1,6 @@
 # Temp files
 temp.*
 
-# openEuler
-/openEuler
-
 # Prerequisites
 *.d
 
