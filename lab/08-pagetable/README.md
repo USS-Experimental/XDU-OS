@@ -1,4 +1,4 @@
-# 进程页表修改
+# 进程页表修改实验
 
 ## 题目
 
@@ -107,3 +107,7 @@ static inline pte_t *pte_offset_kernel(pmd_t *pmd, unsigned long address)
 同时刚刚调用`find_get_pid()`时，增加了对找到的`pid*`的应用计数，需要调用`put_pid()`释放。
 
 至此任务完成。
+
+### 重新编译安装内核
+
+完成相关实现后，要重新编译安装系统内核，见根目录`README.md`。
