@@ -9,7 +9,9 @@
 
 ## 使用方法
 
-`strace -e write -f ./run.sh file write 2>&1 | grep "write("`
+```bash
+$ strace -e write -f ./run.sh file write 2>&1 | grep "write("
+```
 
 ## 解答
 
