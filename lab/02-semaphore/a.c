@@ -47,13 +47,14 @@ int main(int argc, char *argv[])
         sem_wait(sem);
         parent_critical_section(filename);
         sem_post(sem);
-        exit(EXIT_SUCCESS);
+
+        wait(NULL);
+
+        sem_close(sem);
+        sem_unlink("SEM");
     }
 
-    wait(NULL);
-
-    sem_close(sem);
-    sem_unlink("SEM");
+    return 0;
 }
 
 void child_critical_section(char *filename)

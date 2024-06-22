@@ -1,10 +1,10 @@
 all:
-	gcc a.c -o a.out
-	gcc b.c -o b.out
+	gcc a.c -o a.out -lpthread
+	gcc b.c -o b.out -lpthread
 
 testa:
 	rm -rf file
-	./a.out file
+	strace -f ./a.out file
 	cat file
 
 testb:
