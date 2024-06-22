@@ -19,20 +19,7 @@ int main(int argc, char *argv[])
 
     char *filename = argv[1];
 
-    int shmfd = shm_open("sharedmem", O_CREAT | O_RDWR, 0666);
-    if (shmfd == -1)
-    {
-        perror("shm_open");
-        exit(EXIT_FAILURE);
-    }
-
-    if (ftruncate(shmfd, sizeof(int)) == -1)
-    {
-        perror("ftruncate");
-        return EXIT_FAILURE;
-    }
-
-    int *turn = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0);
+    int *turn = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (turn == MAP_FAILED)
     {
         perror("mmap");
@@ -64,11 +51,10 @@ int main(int argc, char *argv[])
         }
         parent_critical_section(filename);
         *turn = 0;
+
         wait(NULL);
+
         munmap(turn, sizeof(int));
-        close(shmfd);
-        shm_unlink("sharedmem");
-        exit(EXIT_SUCCESS);
     }
 
     return 0;
